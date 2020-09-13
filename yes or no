@@ -1,0 +1,33 @@
+#第一步 先 两个文件 分别 每一个单词读取出来统计数目
+##原文件
+content1 = fr.readlines()
+contentLines1 = ''
+characers1 = []
+stat1 = {}
+for line in content1:
+    line = line.strip()#去空格
+    if len(line) == 0:
+        continue
+    contentLines1 = contentLines1+line
+    for x in range(0,len(line)):
+        if not line[x] in characers1:
+            characers1.append(line[x])
+        if line[x] not in stat1:
+            stat1[line[x]]=1
+        stat1[line[x]]+=1
+##同理抄袭文件
+content2 = fr.readlines()
+contentLines2 = ''
+characers2 = []
+stat2 = {}
+for line in content2:
+    line = line.strip()#去空格
+    if len(line) == 0:
+        continue
+    contentLines2 = contentLines2+line
+    for x in range(0,len(line)):
+        if not line[x] in characers2:
+            characers2.append(line[x])
+        if line[x] not in stat2:
+            stat2[line[x]]=1
+        stat2[line[x]]+=1
