@@ -1,0 +1,4 @@
+with open('C:\\Users\\Administrator\\Desktop\\result.txt', 'w') as f:
+    f.write(result)
+# w表示已经可以覆盖并且写，若文件不存在会新建
+print('C:\\Users\\Administrator\\Desktop\\result.txt'+'：'+result)
