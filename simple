@@ -1,0 +1,8 @@
+# -*- coding: utf-8 -*-
+# 打开文件
+import sys
+import os
+x1 = input()
+x2 = input()
+fr = open(x1, 'r', encoding="gbk")
+fd = open(x2, 'r', encoding="gbk")
