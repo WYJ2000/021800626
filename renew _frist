@@ -1,0 +1,8 @@
+tochar = []
+for line in content1:
+    line = line.strip()
+    if len(line) == 0:
+        continue
+    for x in range(0,len(line)):
+        if not line[x] in tochar:
+            tochar.append(line[x])  ##所有的汉字
