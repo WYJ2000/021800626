@@ -1,0 +1,8 @@
+#核心部分
+def cos_dist(vec1,vec2):#余弦距离
+    dist1 = float( np.dot(vec1.vec2)/
+                   (np.linalg.norm(vec1)*np.linalg.norm(vec2))
+                   )
+    return dist1
+#运行上述的式子
+result = float('%.2f' %cos_dist(stat1,stat))
