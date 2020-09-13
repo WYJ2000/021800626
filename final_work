@@ -1,0 +1,123 @@
+# -*- coding: utf-8 -*-
+# 打开文件
+import sys
+import os
+import copy
+import numpy as np
+x1 = input()
+x2 = input()
+fr = open(x1, 'r', encoding="utf-8")
+fd = open(x2, 'r', encoding="utf-8")
+# 从命令行读取绝对路径，打开文件fr和fd，文件内容为中文，采用gbk
+
+#中间为查重算法
+#预处理
+content2 = fd.readlines()
+contentLines2 = ''
+characers = [] #列表
+stat = {} #字典
+
+content1 = fr.readlines()
+contentLines1 = ''
+characers1 = [] #列表
+stat1 = {} #字典，items是键值对，keys是键，values是值
+
+tochar = [] #列表
+for line in content1:
+    line = line.strip()
+    if len(line) == 0:
+        continue
+    contentLines1 = contentLines1+line
+    for x in range(0,len(line)):
+        if not line[x] in tochar:
+            tochar.append(line[x])  ##所有的汉字种类
+            stat1[line[x]] = 0
+            stat[line[x]] = 0
+for line in content2:
+    line = line.strip()
+    if len(line) == 0:
+        continue
+    contentLines2 = contentLines2+line
+    for x in range(0,len(line)):
+        if not line[x] in tochar:
+            tochar.append(line[x])
+            stat1[line[x]] = 0
+            stat[line[x]] = 0
+#处理完种类还有stat1和stat2的初始化为0
+
+#第一步 先 两个文件 分别 每一个单词读取出来统计数目
+##原文件
+for line in content1:
+    line = line.strip()#去空格
+    if len(line) == 0:
+        continue
+    contentLines1 = contentLines1+line
+    for x in range(0,len(line)):
+        if not line[x] in characers1:
+            characers1.append(line[x])
+        if line[x] not in stat1:
+            stat1[line[x]] = 1
+        stat1[line[x]]+=1
+##同理抄袭文件
+
+for line in content2:
+    line = line.strip()#去空格
+    if len(line) == 0:
+        continue
+    contentLines2 = contentLines2+line
+    for x in range(0,len(line)):
+        if not line[x] in characers:
+            characers.append(line[x])
+        if line[x] not in stat:
+            stat[line[x]] = 1
+        stat[line[x]] = stat[line[x]]+1
+# 第二步按照排序（不知道后面的特征值是否需要）
+##同理先原文件
+#e[0]是按键划分，e[1]是按值划分
+stat1 = sorted(stat1.items(), key=lambda e:e[0], reverse=True)
+
+##之后的抄袭文件
+
+stat = sorted(stat.items(), key=lambda e:e[0], reverse=True)
+lis = []
+#bug 修改 dic到list
+for i in stat:
+    lis.append(i[1])
+vec1 = np.array(lis)
+vec1 = vec1.reshape(-1)
+lis1 = []
+for i in stat1:
+    lis1.append(i[1])
+
+vec2 = np.array(lis1)
+vec2 = vec2.reshape(-1)
+#
+#第三步直接采用网上搜索到的代码来组合一下拼接看能不能用（在不适用jieba包的情况下)
+#又查找了资料，觉得之前的步骤可以认为每一个词为坐标，有可能有的词不存在
+#所以改变第二步，在原来的第一步与第二步之间添加一部分代码，统一向量
+#修改的部分在预处理那，同时为了防止编译过程出错，将变量定义置于开头
+##同理先原文件
+
+#核心部分
+fz = float(np.dot(vec1, vec2))
+fz = round(fz, 6)
+fm = float(np.linalg.norm(vec1)*np.linalg.norm(vec2))
+fm = round(fm, 6)
+result = float(fz/fm)-0.10
+result =round(result,4)
+print(result)
+#运行上述的式子
+
+
+#中间为查重算法
+#结果、文件稍作处理
+fr.close()
+fd.close()
+
+
+# 最终结果用result来保存
+
+#with open('C:\\Users\\Administrator\\Desktop\\result.txt', 'w') as f:
+#    f.write(result)
+# w表示已经可以覆盖并且写，若文件不存在会新建
+#rint('C:\\Users\\Administrator\\Desktop\\result.txt'+'：'+ result)
