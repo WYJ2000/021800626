@@ -105,7 +105,7 @@ fm = float(np.linalg.norm(vec1)*np.linalg.norm(vec2))
 fm = round(fm, 6)
 result = float(fz/fm)-0.10
 result =round(result,4)
-print(result)
+
 #运行上述的式子
 
 
@@ -117,7 +117,7 @@ fd.close()
 
 # 最终结果用result来保存
 
-#with open('C:\\Users\\Administrator\\Desktop\\result.txt', 'w') as f:
-#    f.write(result)
+with open('C:\\Users\\Administrator\\Desktop\\result.txt', 'w') as f:
+    f.write(result)
 # w表示已经可以覆盖并且写，若文件不存在会新建
-#rint('C:\\Users\\Administrator\\Desktop\\result.txt'+'：'+ result)
+print('C:\\Users\\Administrator\\Desktop\\result.txt'+'：'+ result)
